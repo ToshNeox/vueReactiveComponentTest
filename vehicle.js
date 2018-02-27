@@ -7,7 +7,7 @@ const fakeVehicleData = [
     { manufacturer: 'Audi', model: 'R8' },
     { manufacturer: 'Audi', model: 'S3' },
     { manufacturer: 'Audi', model: 'RS3' },
-    { manufacturer: 'Honda', model: 'A7' },
+    { manufacturer: 'Honda', model: 'Civic' },
     { manufacturer: 'Renault', model: 'Clio' },
     { manufacturer: 'Ford', model: 'Focus' }
 ];
@@ -31,10 +31,10 @@ Vue.component('vehicle-details', {
         // too frequently, and execute straight away
         updateVehicleDetails: _.debounce(function(newVal, oldVal){
             // Check bounds
-            if(newVal < 0 || newVal > fakeVehicleData.length - 1){
+            if(newVal < 0 || newVal > fakeVehicleData.length - 1 || newVal === ''){
                 // Remove loading flag
                 this.loading = false;
-                
+
                 return;
             }
 
@@ -46,7 +46,15 @@ Vue.component('vehicle-details', {
 
             // Remove loading flag
             this.loading = false;
-        }, 600)
+        }, 600),
+        // Boolean flag for 'no vehicle selected' message
+        noDataSelected: function(){
+            if(this.vehicleID === null){
+                return true;
+            }
+
+            return false;
+        }
     },
     watch: {
         vehicleID: function(newVal, oldVal){
@@ -61,11 +69,11 @@ Vue.component('vehicle-details', {
 
 // Application component
 var app = new Vue({
-    el: '#container',
+    el: '#vehicleSelector',
     data: () => {
         // Return data object
         return {
-            vehicleIDInput: 0
+            vehicleIDInput: null
         }
     }
 });

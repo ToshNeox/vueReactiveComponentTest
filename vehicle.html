@@ -11,21 +11,53 @@
 
     <!-- Custom CSS -->
     <style>
-        #vehicleComponent ul.loading {
+        #vehicleSelector .loading {
             -webkit-filter: blur(5px);
         }
-        #vehicleComponent div.loadingMessage {
+        #vehicleSelector .loadingMessage {
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <section>
-        <div class="container">
-            <div id="selector">
-                <input type="number" v-model="vehicleIDInput">
+    <section class="section">
+        <div class="container" id="vehicleSelector">
+            <div class="columns">
+                <!-- Empty column for central alignment -->
+                <div class="column"></div>
+
+                <div class="column is-half">
+                    <h1 class="title is-1">Vehicle Selector</h1>
+
+                    <!-- Vehicle selector form -->
+                    <form>
+                        <!-- ID input -->
+                        <label class="label">Vehicle ID</label>
+                        <div class="control">
+                            <input type="number" class="input is-rounded is-info" v-model="vehicleIDInput">
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Empty column for central alignment -->
+                <div class="column"></div>
             </div>
-            <div id="vehicleComponent">
-                <vehicle-details v-bind:vehicle-i-d="vehicleIDInput"></vehicle-details>
+            <div class="columns">
+                <!-- Empty column for central alignment -->
+                <div class="column"></div>
+
+                <div class="column is-half">
+                    <!-- Vehicle details -->
+                    <div class="field">
+                        <h2 class="subtitle is-2">Car Details</h2>
+                        <div class="box">
+                            <vehicle-details v-bind:vehicle-i-d="vehicleIDInput"></vehicle-details>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty column for central alignment -->
+                <div class="column"></div>
             </div>
         </div>
     </section>
@@ -33,13 +65,13 @@
     <!-- Templates -->
     <script type="text/x-template" id="template-vehicleDetails">
         <div>
-            <ul v-bind:class="{ loading: loading }">
-                <li>{{ vehicleDetails.manufacturer }}</li>
-                <li>{{ vehicleDetails.model }}</li>
-            </ul>
-
             <!-- Loading message -->
-            <div class="loadingMessage" v-if="loading">Loading</div>
+            <h5 class="subtitle is-5 loadingMessage" v-if="loading">Loading</h5>
+
+            <!-- No data selected message -->
+            <h6 class="subtitle is-6" v-if="noDataSelected()">No vehicle selected</h6>
+
+            <span v-bind:class="{ loading: loading }">{{ vehicleDetails.manufacturer }} {{ vehicleDetails.model }}</span>
         </div>
     </script>
 
