@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue.js Reactive Component Test - Vehicle</title>
+    <style>
+        #vehicleComponent ul.loading {
+            -webkit-filter: blur(5px);
+        }
+        #vehicleComponent div.loadingMessage {
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="selector">
+            <input type="number" v-model="vehicleIDInput">
+        </div>
+        <div id="vehicleComponent">
+            <vehicle-details v-bind:vehicle-i-d="vehicleIDInput"></vehicle-details>
+        </div>
+    </div>
+
+    <!-- Templates -->
+    <script type="text/x-template" id="template-vehicleDetails">
+        <div>
+            <ul v-bind:class="{ loading: loading }">
+                <li>{{ vehicleDetails.manufacturer }}</li>
+                <li>{{ vehicleDetails.model }}</li>
+            </ul>
+
+            <!-- Loading message -->
+            <div class="loadingMessage" v-if="loading">Loading</div>
+        </div>
+    </script>
+
+    <!-- Scripts -->
+    <!-- Vue.js (non-minified version so we get full error messages) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js" integrity="sha256-pU9euBaEcVl8Gtg+FRYCtin2vKLN8sx5/4npZDmY2VA=" crossorigin="anonymous"></script>
+
+    <!-- Lodash -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
+
+    <!-- Page script -->
+    <script src="vehicle.js"></script>
+</body>
+</html>
