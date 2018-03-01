@@ -1,18 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
 <head>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="A test of reactive Vue.js components">
+
     <title>Vue.js Reactive Component Test - Vehicle</title>
 
-    <!-- Meta -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Bulma CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" integrity="sha256-2k1KVsNPRXxZOsXQ8aqcZ9GOOwmJTMoOB5o5Qp1d6/s=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" integrity="sha256-2k1KVsNPRXxZOsXQ8aqcZ9GOOwmJTMoOB5o5Qp1d6/s=" crossorigin="anonymous">
 
-    <!-- Custom CSS -->
+    <!--
+        Custom CSS
+        Allowed despite Front End Checklist recommending against it because
+        having the overhead of another request just for the below few lines
+        would be useless
+     -->
     <style>
         #vehicleSelector .loading {
             -webkit-filter: blur(5px);
+            filter: blur(5px);
         }
         #vehicleSelector .loadingMessage {
             font-weight: bold;
@@ -20,47 +29,60 @@
     </style>
 </head>
 <body>
-    <section class="section">
-        <div class="container" id="vehicleSelector">
-            <div class="columns">
-                <!-- Empty column for central alignment -->
-                <div class="column"></div>
-
-                <div class="column is-half">
-                    <h1 class="title is-1">Vehicle Selector</h1>
-
-                    <!-- Vehicle selector form -->
-                    <form>
-                        <!-- ID input -->
-                        <label class="label">Vehicle ID</label>
-                        <div class="control">
-                            <input type="number" class="input is-rounded is-info" v-model="vehicleIDInput">
-                        </div>
-                    </form>
+    <header>
+        <h1 class="title is-1 has-text-centered">Vehicle Selector</h1>
+    </header>
+    <main>
+        <!-- Message if JavaScript is disabled -->
+        <noscript>
+            <section class="section">
+                <div class="notification is-danger">
+                    You need JavaScript enabled to view this document properly.
                 </div>
+            </section>
+        </noscript>
 
-                <!-- Empty column for central alignment -->
-                <div class="column"></div>
-            </div>
-            <div class="columns">
-                <!-- Empty column for central alignment -->
-                <div class="column"></div>
+        <!-- Vehicle selector -->
+        <section class="section">
+            <div class="container" id="vehicleSelector">
+                <div class="columns">
+                    <!-- Empty column for central alignment -->
+                    <div class="column"></div>
 
-                <div class="column is-half">
-                    <!-- Vehicle details -->
-                    <div class="field">
-                        <h2 class="subtitle is-2">Car Details</h2>
-                        <div class="box">
-                            <vehicle-details v-bind:vehicle-i-d="vehicleIDInput"></vehicle-details>
+                    <div class="column is-half">
+                        <!-- Vehicle selector form -->
+                        <form>
+                            <!-- ID input -->
+                            <label class="label">Vehicle ID</label>
+                            <div class="control">
+                                <input type="number" class="input is-rounded is-info" v-model="vehicleIDInput" aria-label="Vehicle Identification Number" autofocus>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Empty column for central alignment -->
+                    <div class="column"></div>
+                </div>
+                <div class="columns">
+                    <!-- Empty column for central alignment -->
+                    <div class="column"></div>
+
+                    <div class="column is-half">
+                        <!-- Vehicle details -->
+                        <div class="field">
+                            <h2 class="subtitle is-2">Car Details</h2>
+                            <div class="box">
+                                <vehicle-details v-bind:vehicle-i-d="vehicleIDInput"></vehicle-details>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Empty column for central alignment -->
-                <div class="column"></div>
+                    <!-- Empty column for central alignment -->
+                    <div class="column"></div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Templates -->
     <script type="text/x-template" id="template-vehicleDetails">
